@@ -7,6 +7,8 @@ _mrpt_num_trials = 5  # number of bases to test
 
 def isPrime(n):
     """
+    Taken from https://rosettacode.org/wiki/Miller%E2%80%93Rabin_primality_test#Python:_Probably_correct_answers
+
     Miller-Rabin primality test.
 
     A return value of False means n is certainly not prime. A return value of
@@ -69,6 +71,7 @@ def get_left_truncatable_primes():
 all_lprimes = get_left_truncatable_primes()
 print("All left-truncatable primes:")
 for prime in all_lprimes:
+    candidates.remove(candidate)
     print(prime)
 print(all([isPrime(num) for num in all_lprimes]))
 print("There are {} left-truncatable primes.".format(len(all_lprimes)))
