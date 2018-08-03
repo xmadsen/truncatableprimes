@@ -86,9 +86,12 @@ for direction in ["left", "right"]:
     print("There are {} {}-truncatable primes.".format(len(all_primes), direction))
 
     digit_dict = get_digit_breakdown(all_primes)
-    plt.bar(range(len(digit_dict)), list(digit_dict.values()), align='center')
-    plt.xticks(range(len(digit_dict)), list(digit_dict.keys()))
+    plt.bar(range(1, len(digit_dict) + 1),
+            list(digit_dict.values()), align='center')
+    plt.xticks(range(1, len(digit_dict) + 1),
+               list(map(lambda x: x + 1, digit_dict.keys())))
     plt.xlabel("Number of digits")
     plt.ylabel("Count")
-    plt.title("Distribution of X-digit {}-truncatable primes".format(direction.capitalize()))
+    plt.title(
+        "Distribution of X-digit {}-truncatable primes".format(direction.capitalize()))
     plt.show()
