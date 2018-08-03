@@ -1,7 +1,7 @@
 # Truncatable Primes
 import math
 import random
-
+import matplotlib.pyplot as plt
 _mrpt_num_trials = 5  # number of bases to test
 
 
@@ -71,8 +71,24 @@ def get_truncatable_primes(left_or_right):
     return sorted(list(set(left_truncatable_primes)))
 
 
+def get_digit_breakdown(all_primes):
+    digit_counts = {}
+    for length in range(len(str(max(all_primes)))):
+        digit_counts[length] = len(
+            list(filter(lambda x: len(str(x)) == length, all_primes)))
+    return digit_counts
+
+
 for direction in ["left", "right"]:
     all_primes = get_truncatable_primes(direction)
     print("All {}-truncatable primes:".format(direction))
-    print(*all_primes, sep="\n")
+    # print(*all_primes, sep="\n")
     print("There are {} {}-truncatable primes.".format(len(all_primes), direction))
+
+    digit_dict = get_digit_breakdown(all_primes)
+    plt.bar(range(len(digit_dict)), list(digit_dict.values()), align='center')
+    plt.xticks(range(len(digit_dict)), list(digit_dict.keys()))
+    plt.xlabel("Number of digits")
+    plt.ylabel("Count")
+    plt.title("Distribution of X-digit {}-truncatable primes".format(direction.capitalize()))
+    plt.show()
