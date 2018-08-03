@@ -50,7 +50,7 @@ def isPrime(n):
     return True  # no base tested showed n as composite
 
 
-def get_left_truncatable_primes():
+def get_truncatable_primes(left_or_right):
     candidates = list(range(2, 10))
     left_truncatable_primes = []
     while candidates:
@@ -58,7 +58,10 @@ def get_left_truncatable_primes():
             if isPrime(candidate):
                 left_truncatable_primes.append(candidate)
                 for digit in range(1, 10):
-                    test = int(str(digit) + str(candidate))
+                    if left_or_right == "left":
+                        test = int(str(digit) + str(candidate))
+                    else:
+                        test = int(str(candidate) + str(digit))
                     if isPrime(test):
                         left_truncatable_primes.append(test)
 
@@ -68,10 +71,8 @@ def get_left_truncatable_primes():
     return sorted(list(set(left_truncatable_primes)))
 
 
-all_lprimes = get_left_truncatable_primes()
-print("All left-truncatable primes:")
-for prime in all_lprimes:
-    candidates.remove(candidate)
-    print(prime)
-print(all([isPrime(num) for num in all_lprimes]))
-print("There are {} left-truncatable primes.".format(len(all_lprimes)))
+for direction in ["left", "right"]:
+    all_primes = get_truncatable_primes(direction)
+    print("All {}-truncatable primes:".format(direction))
+    print(*all_primes, sep="\n")
+    print("There are {} {}-truncatable primes.".format(len(all_primes), direction))
